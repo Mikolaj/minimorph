@@ -7,6 +7,9 @@
 # Blank lines, and lines beginning with an octothorpe (#) are ignored.
 # See regex(7) for a description of extended regular expressions.
 
+^dist(/|$)
+^cabal-dev(/|$)
+
 ### compiler and interpreter intermediate files
 # haskell (ghc) interfaces
 \.hi$

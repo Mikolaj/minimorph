@@ -46,7 +46,12 @@ ordinal n = case n of
     1 -> "first"
     2 -> "second"
     3 -> "third"
-    _ -> T.pack (show n) <> "th"
+    n | n < 21          -> n `suf` "th"
+      | n `rem` 10 == 2 -> n `suf` "nd"
+      | n `rem` 10 == 3 -> n `suf` "rd"
+      | otherwise       -> n `suf` "th"
+  where
+    n `suf` s = T.pack (show n) <> s
 
 -- | Heuristics for English plural for an unknown noun
 --

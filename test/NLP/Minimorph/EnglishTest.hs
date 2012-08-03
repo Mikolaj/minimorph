@@ -16,6 +16,7 @@ suite = testGroup "NLP.Minimorph.English"
      [ t_defaultVerbStuff
      , t_defaultNounPlural
      , t_indefiniteDet
+     , t_ordinal
      , t_commas
      ]
 
@@ -57,6 +58,16 @@ t_indefiniteDet = testGroup "indefiniteDet"
        assertEqual summary res (indefiniteDet inp)
       where
        summary = msg ++ " (" ++ T.unpack (T.unwords [res, inp]) ++ ")"
+
+t_ordinal :: Test.Framework.Test
+t_ordinal = testGroup "ordinal"
+    [ tc "12th"                  12
+    , tc "42nd"                  42
+    , tc "44th"                  44
+    ]
+  where
+    tc res inp = testCase (show inp ++ " => " ++ T.unpack res) $
+        assertEqual "" res (ordinal inp)
 
 t_commas :: Test.Framework.Test
 t_commas = testGroup "commas"

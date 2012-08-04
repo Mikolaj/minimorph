@@ -1,6 +1,5 @@
 {-# LANGUAGE ViewPatterns, OverloadedStrings #-}
 -- TODO : learn how to use Functional Morphology instead
--- http://www.paulnoll.com/Books/Clear-English/English-plurals-1.html
 
 -- | Module    : NLP.Minimorph.English
 -- Copyright   : 2012 Eric Kow (Computational Linguistics Ltd.)
@@ -60,6 +59,8 @@ ordinal n = case n of
 -- > defaultNounPlural "boy"    == "boys"
 -- > defaultNounPlural "spy"    == "spies"
 -- > defaultNounPlural "thesis" == "theses"
+--
+-- http://www.paulnoll.com/Books/Clear-English/English-plurals-1.html
 defaultNounPlural :: Text -> Text
 defaultNounPlural x
     | "is" `T.isSuffixOf` x = thesis

@@ -98,13 +98,16 @@ defaultVerbStuff v
 --   > indefiniteDet "egg"  == "an"
 --   > indefiniteDet "ewe"  == "a"
 --   > indefiniteDet "ewok" == "an"
+--   > indefiniteDet "8th"  == "an"
 indefiniteDet :: Text -> Text
 indefiniteDet (T.toLower -> t) =
     if useAn then "an" else "a"
   where
-    useAn = case T.uncons t of
-                Just (h,_) -> isVowel h `butNot` hasSemivowelPrefix t
-                Nothing    -> False
+    useAn  = t `elem` [ "11", "11th" ] || useAn'
+    useAn' = case T.uncons t of
+                Just ('8',_) -> True
+                Just (h,_)   -> isVowel h `butNot` hasSemivowelPrefix t
+                Nothing      -> False
     x `butNot` y = x && not y
 
 -- | Ends with a sh sound
@@ -121,9 +124,8 @@ hasCySuffix (T.unpack . tTakeEnd 2 -> [x, 'y']) = isConsonant x
 hasCySuffix _ = False
 
 -- | Is a vowel
---   (this includes @'1'@ and @'8'@ because of @"one"@ and @"eight"@)
 isVowel :: Char -> Bool
-isVowel = (`elem` "aeiouAEIOU18")
+isVowel = (`elem` "aeiouAEIOU")
 
 -- | Is a consonant
 isConsonant :: Char -> Bool

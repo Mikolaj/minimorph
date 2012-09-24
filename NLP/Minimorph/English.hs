@@ -28,12 +28,19 @@ commas et xs = T.intercalate ", " (init xs) <+> et <+> last xs
 -- | > cardinal 1 == "one"
 --   > cardinal 2 == "two"
 --   > cardinal 3 == "three"
---   > cardinal 4 == "4"
+--   > cardinal 11 == "11"
 cardinal :: Int -> Text
 cardinal n = case n of
-    1 -> "one"
-    2 -> "two"
-    3 -> "three"
+    1  -> "one"
+    2  -> "two"
+    3  -> "three"
+    4  -> "four"
+    5  -> "five"
+    6  -> "six"
+    7  -> "seven"
+    8  -> "eight"
+    9  -> "nine"
+    10 -> "ten"
     _ -> T.pack (show n)
 
 -- | > cardinal 1 == "first"
@@ -42,9 +49,16 @@ cardinal n = case n of
 --   > cardinal 4 == "4th"
 ordinal :: Int -> Text
 ordinal n = case n of
-    1 -> "first"
-    2 -> "second"
-    3 -> "third"
+    1  -> "first"
+    2  -> "second"
+    3  -> "third"
+    4  -> "fourth"
+    5  -> "fifth"
+    6  -> "sixth"
+    7  -> "seventh"
+    8  -> "eighth"
+    9  -> "ninth"
+    10 -> "tenth"
     n | n < 21          -> n `suf` "th"
       | n `rem` 10 == 2 -> n `suf` "nd"
       | n `rem` 10 == 3 -> n `suf` "rd"

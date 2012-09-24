@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                minimorph
-version:             0.1.1.0
+version:             0.1.2.0
 synopsis:            English spelling functions with an emphasis on simplicity.
 description:         A set of simplistic functions capturing the more regular
                      parts of English spelling (for generation, not parsing).
@@ -25,7 +25,7 @@ cabal-version:       >=1.8
 
 source-repository head
   type:     darcs
-  location: http://darcsden.com/kowey/minimorph
+  location: http://hub.darcs.net/kowey/minimorph
 
 library
   exposed-modules:     NLP.Minimorph.English

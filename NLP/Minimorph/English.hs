@@ -43,10 +43,11 @@ cardinal n = case n of
     10 -> "ten"
     _ -> T.pack (show n)
 
--- | > cardinal 1 == "first"
---   > cardinal 2 == "second"
---   > cardinal 3 == "third"
---   > cardinal 4 == "4th"
+-- | > ordinal 1 == "first"
+--   > ordinal 2 == "second"
+--   > ordinal 3 == "third"
+--   > ordinal 11 == "11th"
+--   > ordinal 42 == "42nd"
 ordinal :: Int -> Text
 ordinal n = case n of
     1  -> "first"

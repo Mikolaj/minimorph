@@ -124,8 +124,9 @@ indefiniteDet t = if wantsAn t then "an" else "a"
 --   'an' as opposed to 'a'
 wantsAn :: Text -> Bool
 wantsAn (T.toLower -> t) =
-    t `elem` [ "11", "11th" ] || useAn1 || useAn2
+    useAn0 || useAn1 || useAn2
   where
+    useAn0 = t `elem` [ "11", "11th" ]
     useAn1 = case T.uncons t of
                 Just ('8',_) -> True
                 Just (h,_)   -> isVowel h `butNot` hasSemivowelPrefix t
@@ -134,6 +135,24 @@ wantsAn (T.toLower -> t) =
                 (T.unpack -> [c], _) -> isLetterWithInitialVowelSound c
                 _ -> False
     x `butNot` y = x && not y
+
+-- | Variant of 'wantsAn' that assumes the input string is pronounced
+--   one letter at a time.
+--
+--   > wantsAn        "x-ray" == False
+--   > acronymWantsAn "x-ray" == True
+--
+--   Note that this won't do the right thing for words like @"SCUBA"@
+--   You really have to reserve it for those separate-letter acronyms
+acronymWantsAn :: Text -> Bool
+acronymWantsAn (T.toLower -> t) =
+    useAn0 || useAn1
+  where
+    useAn0 = t `elem` [ "11", "11th" ]
+    useAn1 = case T.uncons t of
+                Just ('8',_) -> True
+                Just (h,_)   -> isLetterWithInitialVowelSound h
+                Nothing      -> False
 
 -- | Ends with a sh sound
 hasSibilantSuffix :: Text -> Bool

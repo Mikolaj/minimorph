@@ -16,6 +16,7 @@ suite = testGroup "NLP.Minimorph.English"
      [ t_defaultVerbStuff
      , t_defaultNounPlural
      , t_indefiniteDet
+     , t_acronymWantsAn
      , t_ordinal
      , t_commas
      ]
@@ -61,6 +62,20 @@ t_indefiniteDet = testGroup "indefiniteDet"
        assertEqual summary res (indefiniteDet inp)
       where
        summary = msg ++ " (" ++ T.unpack (T.unwords [res, inp]) ++ ")"
+
+t_acronymWantsAn :: Test.Framework.Test
+t_acronymWantsAn = testGroup "acronymWantsAn"
+    [ tc "rgb"       True    "rgb"
+    , tc "kml"       False   "kml"
+    , tc "ac"        True    "ac"
+    , tc "dc"        False   "dc"
+    ]
+  where
+    tc msg res inp = testCase summary $
+       assertEqual summary res (acronymWantsAn inp)
+      where
+       summary = msg ++ " (" ++ T.unpack inp ++ ")"
+
 
 t_ordinal :: Test.Framework.Test
 t_ordinal = testGroup "ordinal"

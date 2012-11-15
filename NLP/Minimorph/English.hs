@@ -12,7 +12,7 @@
 -- Simple default rules for English morphology
 module NLP.Minimorph.English where
 
-import           Data.Char          (toLower)
+import           Data.Char          (toLower, isSpace)
 import           Data.Text          (Text)
 import qualified Data.Text          as T
 
@@ -131,10 +131,11 @@ wantsAn (T.toLower -> t) =
                 Just ('8',_) -> True
                 Just (h,_)   -> isVowel h `butNot` hasSemivowelPrefix t
                 Nothing      -> False
-    useAn2 = case T.breakOn "-" t of
+    useAn2 = case T.break isSep t of
                 (T.unpack -> [c], _) -> isLetterWithInitialVowelSound c
                 _ -> False
     x `butNot` y = x && not y
+    isSep c = isSpace c || c `elem` "-"
 
 -- | Variant of 'wantsAn' that assumes the input string is pronounced
 --   one letter at a time.

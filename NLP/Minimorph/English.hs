@@ -118,14 +118,21 @@ defaultVerbStuff v
 --   > indefiniteDet "ewok" == "an"
 --   > indefiniteDet "8th"  == "an"
 indefiniteDet :: Text -> Text
-indefiniteDet (T.toLower -> t) =
-    if useAn then "an" else "a"
+indefiniteDet t = if wantsAn t then "an" else "a"
+
+-- | True if the indefinite determiner for a word would normally be
+--   'an' as opposed to 'a'
+wantsAn :: Text -> Bool
+wantsAn (T.toLower -> t) =
+    t `elem` [ "11", "11th" ] || useAn1 || useAn2
   where
-    useAn  = t `elem` [ "11", "11th" ] || useAn'
-    useAn' = case T.uncons t of
+    useAn1 = case T.uncons t of
                 Just ('8',_) -> True
                 Just (h,_)   -> isVowel h `butNot` hasSemivowelPrefix t
                 Nothing      -> False
+    useAn2 = case T.breakOn "-" t of
+                (T.unpack -> [c], _) -> isLetterWithInitialVowelSound c
+                _ -> False
     x `butNot` y = x && not y
 
 -- | Ends with a sh sound
@@ -144,6 +151,17 @@ hasCySuffix _ = False
 -- | Is a vowel
 isVowel :: Char -> Bool
 isVowel = (`elem` "aeiou") . toLower
+
+-- | Letters that when pronounced independently in English sound like they
+--   begin with vowels
+--
+--   > isLetterWithInitialVowelSound 'r' == True
+--   > isLetterWithInitialVowelSound 'k' == False
+--
+--   (In the above, @'r'@ is pronounced @"are"@, but @'k'@ is pronounced
+--   @"kay"@)
+isLetterWithInitialVowelSound :: Char -> Bool
+isLetterWithInitialVowelSound = (`elem` "aeioufmnrsxy") . toLower
 
 -- | Is a consonant
 isConsonant :: Char -> Bool

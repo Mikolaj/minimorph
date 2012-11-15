@@ -52,6 +52,9 @@ t_indefiniteDet = testGroup "indefiniteDet"
     , tc "ewok"        "an"   "Ewok"
     , tc "7th"         "a"    "7th"
     , tc "8th"         "an"   "8th"
+    , tc "xylophone"   "a"    "xylophone"
+    , tc "x-ray"       "an"   "x-ray"
+    , tc "g-ray"       "a"    "g-ray"
     ]
   where
     tc msg res inp = testCase summary $

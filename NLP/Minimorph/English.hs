@@ -12,6 +12,7 @@
 -- Simple default rules for English morphology
 module NLP.Minimorph.English where
 
+import           Data.Char          (toLower)
 import           Data.Text          (Text)
 import qualified Data.Text          as T
 
@@ -142,7 +143,7 @@ hasCySuffix _ = False
 
 -- | Is a vowel
 isVowel :: Char -> Bool
-isVowel = (`elem` "aeiouAEIOU")
+isVowel = (`elem` "aeiou") . toLower
 
 -- | Is a consonant
 isConsonant :: Char -> Bool

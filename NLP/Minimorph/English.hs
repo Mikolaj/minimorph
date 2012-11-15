@@ -1,4 +1,5 @@
-{-# LANGUAGE ViewPatterns, OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ViewPatterns      #-}
 -- TODO : learn how to use Functional Morphology instead
 
 -- | Module    : NLP.Minimorph.English
@@ -11,10 +12,10 @@
 -- Simple default rules for English morphology
 module NLP.Minimorph.English where
 
-import Data.Text ( Text )
-import qualified Data.Text as T
+import           Data.Text          (Text)
+import qualified Data.Text          as T
 
-import NLP.Minimorph.Util
+import           NLP.Minimorph.Util
 
 -- | No Oxford commas, alas.
 --

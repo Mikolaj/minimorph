@@ -12,7 +12,7 @@
 -- Simple default rules for English morphology
 module NLP.Minimorph.English where
 
-import           Data.Char          (toLower, isSpace)
+import           Data.Char          (toLower, isSpace, isUpper)
 import           Data.Text          (Text)
 import qualified Data.Text          as T
 
@@ -139,9 +139,12 @@ indefiniteDet t = if wantsAn t then "an" else "a"
 -- | True if the indefinite determiner for a word would normally be
 --   'an' as opposed to 'a'
 wantsAn :: Text -> Bool
-wantsAn (T.toLower -> t) =
-    useAn0 || useAn1 || useAn2
+wantsAn t_ =
+    if startsWithAcronym t_
+       then acronymWantsAn t_
+       else useAn0 || useAn1 || useAn2
   where
+    t      = T.toLower t_
     useAn0 = t `elem` [ "11", "11th" ]
     useAn1 = case T.uncons t of
                 Just ('8',_) -> True
@@ -170,6 +173,27 @@ acronymWantsAn (T.toLower -> t) =
                 Just ('8',_) -> True
                 Just (h,_)   -> isLetterWithInitialVowelSound h
                 Nothing      -> False
+
+-- ---------------------------------------------------------------------
+-- ** Acronyms
+-- ---------------------------------------------------------------------
+
+-- | True if all upper case from second letter and up
+--
+--   > looksLikeAcronym "DNA"  == True
+--   > looksLikeAcronym "tRNA" == True
+--   > looksLikeAcronym "DnA"  == False
+looksLikeAcronym :: Text -> Bool
+looksLikeAcronym x = T.all isUpper (T.drop 1 x)
+
+-- | True if the first word (separating on either - or space)
+--   looks like an acronym
+startsWithAcronym :: Text -> Bool
+startsWithAcronym =
+    looksLikeAcronym . firstWord
+  where
+    firstWord = fst . T.break isSep
+    isSep c   = isSpace c || c `elem` "-"
 
 -- ---------------------------------------------------------------------
 -- ** Sounds

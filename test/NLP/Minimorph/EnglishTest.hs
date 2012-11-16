@@ -59,6 +59,7 @@ t_indefiniteDet = testGroup "indefiniteDet"
     , tc "y-chromo"    "a"    "y-chromosome"
     , tc "x-chromo"    "an"   "x-chromosome"
     , tc "x chromo"    "an"   "x chromosome"
+    , tc "mvp award"   "an"   "MVP award"
     ]
   where
     tc msg res inp = testCase summary $

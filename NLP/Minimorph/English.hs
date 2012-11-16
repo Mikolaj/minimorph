@@ -18,6 +18,10 @@ import qualified Data.Text          as T
 
 import           NLP.Minimorph.Util
 
+-- ---------------------------------------------------------------------
+-- ** Punctuation
+-- ---------------------------------------------------------------------
+
 -- | No Oxford commas, alas.
 --
 -- > commas "and" "foo bar"       == "foo and bar"
@@ -26,6 +30,10 @@ commas :: Text -> [Text] -> Text
 commas _ []  = ""
 commas _ [x] = x
 commas et xs = T.intercalate ", " (init xs) <+> et <+> last xs
+
+-- ---------------------------------------------------------------------
+-- ** Numbers
+-- ---------------------------------------------------------------------
 
 -- | > cardinal 1 == "one"
 --   > cardinal 2 == "two"
@@ -68,6 +76,10 @@ ordinal n = case n of
       | otherwise       -> n `suf` "th"
   where
     n `suf` s = T.pack (show n) <> s
+
+-- ---------------------------------------------------------------------
+-- ** Nouns and verbs
+-- ---------------------------------------------------------------------
 
 -- | Heuristics for English plural for an unknown noun
 --
@@ -112,6 +124,10 @@ defaultVerbStuff v
     e_final    x = (x <> "s"         , x <> "d")
     y_final    x = (T.init x <> "ies", T.init x <> "ied")
 
+-- ---------------------------------------------------------------------
+-- ** Determiners
+-- ---------------------------------------------------------------------
+
 -- | > indefiniteDet "dog"  == "a"
 --   > indefiniteDet "egg"  == "an"
 --   > indefiniteDet "ewe"  == "a"
@@ -154,6 +170,10 @@ acronymWantsAn (T.toLower -> t) =
                 Just ('8',_) -> True
                 Just (h,_)   -> isLetterWithInitialVowelSound h
                 Nothing      -> False
+
+-- ---------------------------------------------------------------------
+-- ** Sounds
+-- ---------------------------------------------------------------------
 
 -- | Ends with a sh sound
 hasSibilantSuffix :: Text -> Bool

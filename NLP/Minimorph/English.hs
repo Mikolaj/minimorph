@@ -98,17 +98,20 @@ ordinal n = case n of
 -- > defaultNounPlural "thesis" == "theses"
 --
 -- http://www.paulnoll.com/Books/Clear-English/English-plurals-1.html
+-- http://en.wikipedia.org/wiki/English_plural
 defaultNounPlural :: Text -> Text
 defaultNounPlural x
     | "is" `T.isSuffixOf` x = thesis
     | hasSibilantSuffix x   = es
     | hasCySuffix x         = y_ies
+    | hasCoSuffix x         = o_es
     | "f"  `T.isSuffixOf` x = f_ves
     | otherwise             = plain
   where
     plain  = x            <> "s"
     es     = x            <> "es"
     y_ies  = T.init x     <> "ies"
+    o_es   = x            <> "es"
     f_ves  = T.init x     <> "ves"
     thesis = tDropEnd 2 x <> "es"
 
@@ -223,7 +226,7 @@ startsWithAcronym =
 
 -- | Ends with a sh sound
 hasSibilantSuffix :: Text -> Bool
-hasSibilantSuffix x = any (`T.isSuffixOf` x) ["x","s","ch","sh"]
+hasSibilantSuffix x = any (`T.isSuffixOf` x) ["x","s","ch","sh","z","j"]
 
 -- | Starts with a semivowel
 hasSemivowelPrefix :: Text -> Bool
@@ -233,6 +236,11 @@ hasSemivowelPrefix ls = any (`T.isPrefixOf` ls) ["y","w","eu","ewe"]
 hasCySuffix :: Text -> Bool
 hasCySuffix (T.unpack . tTakeEnd 2 -> [x, 'y']) = isConsonant x
 hasCySuffix _ = False
+
+-- | Last two letters are a consonant and 'o'
+hasCoSuffix :: Text -> Bool
+hasCoSuffix (T.unpack . tTakeEnd 2 -> [x, 'o']) = isConsonant x
+hasCoSuffix _ = False
 
 -- | Is a vowel
 isVowel :: Char -> Bool

@@ -53,6 +53,19 @@ cardinal n = case n of
     10 -> "ten"
     _ -> showT n
 
+-- | > ordinalNotSpelled 1 == "1st"
+--   > ordinalNotSpelled 2 == "2nd"
+--   > ordinalNotSpelled 11 == "11th"
+ordinalNotSpelled :: Int -> Text
+ordinalNotSpelled k = case abs k `rem` 100 of
+  n | n > 3 && n < 21 -> k `suf` "th"
+    | n `rem` 10 == 1 -> k `suf` "st"
+    | n `rem` 10 == 2 -> k `suf` "nd"
+    | n `rem` 10 == 3 -> k `suf` "rd"
+    | otherwise       -> k `suf` "th"
+ where
+  num `suf` s = showT num <> s
+
 -- | > ordinal 1 == "first"
 --   > ordinal 2 == "second"
 --   > ordinal 3 == "third"
@@ -70,12 +83,7 @@ ordinal n = case n of
     8  -> "eighth"
     9  -> "ninth"
     10 -> "tenth"
-    n | n < 21          -> n `suf` "th"
-      | n `rem` 10 == 2 -> n `suf` "nd"
-      | n `rem` 10 == 3 -> n `suf` "rd"
-      | otherwise       -> n `suf` "th"
-  where
-    n `suf` s = showT n <> s
+    k  -> ordinalNotSpelled k
 
 -- ---------------------------------------------------------------------
 -- ** Nouns and verbs

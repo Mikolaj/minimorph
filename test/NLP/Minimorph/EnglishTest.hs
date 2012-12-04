@@ -86,6 +86,8 @@ t_ordinal = testGroup "ordinal"
     [ tc "12th"                  12
     , tc "42nd"                  42
     , tc "44th"                  44
+    , tc "41st"                  41
+    , tc "-3rd"                  (-3)
     ]
   where
     tc res inp = testCase (show inp ++ " => " ++ T.unpack res) $

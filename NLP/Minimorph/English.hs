@@ -132,6 +132,20 @@ defaultVerbStuff v
     e_final    x = (x <> "s"         , x <> "d")
     y_final    x = (T.init x <> "ies", T.init x <> "ied")
 
+-- | Heuristics for a possesive form for an unknown noun.
+--
+-- > defaultPossesive "pass"        == "pass'"
+-- > defaultPossesive "SOS"         == "SOS'"
+-- > defaultPossesive "Mr Blinkin'" == "Mr Blinkin's"
+-- > defaultPossesive "cry"         == "cry's"
+defaultPossesive :: Text -> Text
+defaultPossesive t =
+  case T.last t of
+    's'  -> t <> "'"
+    'S'  -> t <> "'"
+    '\'' -> t <> "s"
+    _    -> t <> "'s"
+
 -- ---------------------------------------------------------------------
 -- ** Determiners
 -- ---------------------------------------------------------------------

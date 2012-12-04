@@ -51,7 +51,7 @@ cardinal n = case n of
     8  -> "eight"
     9  -> "nine"
     10 -> "ten"
-    _ -> T.pack (show n)
+    _ -> showT n
 
 -- | > ordinal 1 == "first"
 --   > ordinal 2 == "second"
@@ -75,7 +75,7 @@ ordinal n = case n of
       | n `rem` 10 == 3 -> n `suf` "rd"
       | otherwise       -> n `suf` "th"
   where
-    n `suf` s = T.pack (show n) <> s
+    n `suf` s = showT n <> s
 
 -- ---------------------------------------------------------------------
 -- ** Nouns and verbs

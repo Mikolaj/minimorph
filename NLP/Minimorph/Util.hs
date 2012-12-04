@@ -6,7 +6,7 @@
 -- Stability   : experimental
 -- Portability : portable
 --
--- Utility functions probably internal to minimorph
+-- Text utility functions.
 module NLP.Minimorph.Util where
 
 import Data.Text ( Text )
@@ -29,4 +29,8 @@ t1 <> t2 = t1 `T.append` t2
 (<+>) :: Text -> Text -> Text
 t1 <+> t2 | T.null t1 = t2
           | T.null t2 = t1
-          | otherwise = t1 `T.append` " " `T.append` t2
+          | otherwise = t1 <> " " <> t2
+
+-- | Show a value in Text format.
+showT :: Show a => a -> Text
+showT = T.pack . show

@@ -153,6 +153,9 @@ defaultPossesive t =
 -- ** Determiners
 -- ---------------------------------------------------------------------
 
+anNumerals :: [Text]
+anNumerals = [ "11", "11th", "18", "18th" ]
+
 -- | > indefiniteDet "dog"  == "a"
 --   > indefiniteDet "egg"  == "an"
 --   > indefiniteDet "ewe"  == "a"
@@ -170,7 +173,7 @@ wantsAn t_ =
        else useAn0 || useAn1 || useAn2
   where
     t      = T.toLower t_
-    useAn0 = t `elem` [ "11", "11th" ]
+    useAn0 = t `elem` anNumerals
     useAn1 = case T.uncons t of
                 Just ('8',_) -> True
                 Just (h,_)   -> isVowel h `butNot` hasSemivowelPrefix t
@@ -193,7 +196,7 @@ acronymWantsAn :: Text -> Bool
 acronymWantsAn (T.toLower -> t) =
     useAn0 || useAn1
   where
-    useAn0 = t `elem` [ "11", "11th" ]
+    useAn0 = t `elem` anNumerals
     useAn1 = case T.uncons t of
                 Just ('8',_) -> True
                 Just (h,_)   -> isLetterWithInitialVowelSound h

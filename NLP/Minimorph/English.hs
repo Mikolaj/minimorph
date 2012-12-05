@@ -89,7 +89,7 @@ ordinal n = case n of
 -- ** Nouns and verbs
 -- ---------------------------------------------------------------------
 
--- | Heuristics for English plural for an unknown noun
+-- | Heuristics for English plural for an unknown noun.
 --
 -- > defaultNounPlural "egg"    == "eggs"
 -- > defaultNounPlural "patch"  == "patches"
@@ -165,7 +165,7 @@ indefiniteDet :: Text -> Text
 indefiniteDet t = if wantsAn t then "an" else "a"
 
 -- | True if the indefinite determiner for a word would normally be
---   'an' as opposed to 'a'
+--   'an' as opposed to 'a'.
 wantsAn :: Text -> Bool
 wantsAn t_ =
     if startsWithAcronym t_
@@ -188,8 +188,8 @@ wantsAn t_ =
 --   > wantsAn        "x-ray" == False
 --   > acronymWantsAn "x-ray" == True
 --
---   Note that this won't do the right thing for words like @"SCUBA"@
---   You really have to reserve it for those separate-letter acronyms
+--   Note that this won't do the right thing for words like @"SCUBA"@.
+--   You really have to reserve it for those separate-letter acronyms.
 acronymWantsAn :: Text -> Bool
 acronymWantsAn (T.toLower -> t) =
     useAn0 || useAn1
@@ -204,7 +204,7 @@ acronymWantsAn (T.toLower -> t) =
 -- ** Acronyms
 -- ---------------------------------------------------------------------
 
--- | True if all upper case from second letter and up
+-- | True if all upper case from second letter and up.
 --
 --   > looksLikeAcronym "DNA"  == True
 --   > looksLikeAcronym "tRNA" == True
@@ -215,7 +215,7 @@ looksLikeAcronym "" = False
 looksLikeAcronym x = T.all isUpper (if T.length x > 1 then T.drop 1 x else x)
 
 -- | True if the first word (separating on either - or space)
---   looks like an acronym
+--   looks like an acronym.
 startsWithAcronym :: Text -> Bool
 startsWithAcronym =
     looksLikeAcronym . firstWord
@@ -227,39 +227,39 @@ startsWithAcronym =
 -- ** Sounds
 -- ---------------------------------------------------------------------
 
--- | Ends with a sh sound
+-- | Ends with a sh sound.
 hasSibilantSuffix :: Text -> Bool
 hasSibilantSuffix x = any (`T.isSuffixOf` x) ["x","s","ch","sh","z","j"]
 
--- | Starts with a semivowel
+-- | Starts with a semivowel.
 hasSemivowelPrefix :: Text -> Bool
 hasSemivowelPrefix ls = any (`T.isPrefixOf` ls) ["y","w","eu","ewe"]
 
--- | Last two letters are a consonant and 'y'
+-- | Last two letters are a consonant and 'y'.
 hasCySuffix :: Text -> Bool
 hasCySuffix (T.unpack . tTakeEnd 2 -> [x, 'y']) = isConsonant x
 hasCySuffix _ = False
 
--- | Last two letters are a consonant and 'o'
+-- | Last two letters are a consonant and 'o'.
 hasCoSuffix :: Text -> Bool
 hasCoSuffix (T.unpack . tTakeEnd 2 -> [x, 'o']) = isConsonant x
 hasCoSuffix _ = False
 
--- | Is a vowel
+-- | Is a vowel.
 isVowel :: Char -> Bool
 isVowel = (`elem` "aeiou") . toLower
 
 -- | Letters that when pronounced independently in English sound like they
---   begin with vowels
+--   begin with vowels.
 --
 --   > isLetterWithInitialVowelSound 'r' == True
 --   > isLetterWithInitialVowelSound 'k' == False
 --
 --   (In the above, @'r'@ is pronounced @"are"@, but @'k'@ is pronounced
---   @"kay"@)
+--   @"kay"@.)
 isLetterWithInitialVowelSound :: Char -> Bool
 isLetterWithInitialVowelSound = (`elem` "aeiofhlmnrsx") . toLower
 
--- | Is a consonant
+-- | Is a consonant.
 isConsonant :: Char -> Bool
 isConsonant = not . isVowel

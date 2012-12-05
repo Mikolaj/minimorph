@@ -170,17 +170,15 @@ wantsAn :: Text -> Bool
 wantsAn t_ =
     if startsWithAcronym t_
        then acronymWantsAn t_
-       else useAn0 || useAn1 || useAn2
+       else useAn0 || useAn1
   where
-    t      = T.toLower t_
+    t      = fst $ T.break isSep $ T.toLower t_
     useAn0 = t `elem` anNumerals
     useAn1 = case T.uncons t of
                 Just ('8',_) -> True
-                Just (h,_)   -> isVowel h `butNot` hasSemivowelPrefix t
+                Just (h, "") -> isLetterWithInitialVowelSound h
+                Just (h, _)  -> isVowel h `butNot` hasSemivowelPrefix t
                 Nothing      -> False
-    useAn2 = case T.break isSep t of
-                (T.unpack -> [c], _) -> isLetterWithInitialVowelSound c
-                _ -> False
     x `butNot` y = x && not y
     isSep c = isSpace c || c `elem` "-"
 
@@ -210,9 +208,11 @@ acronymWantsAn (T.toLower -> t) =
 --
 --   > looksLikeAcronym "DNA"  == True
 --   > looksLikeAcronym "tRNA" == True
+--   > looksLikeAcronym "x"    == False
 --   > looksLikeAcronym "DnA"  == False
 looksLikeAcronym :: Text -> Bool
-looksLikeAcronym x = T.all isUpper (T.drop 1 x)
+looksLikeAcronym "" = False
+looksLikeAcronym x = T.all isUpper (if T.length x > 1 then T.drop 1 x else x)
 
 -- | True if the first word (separating on either - or space)
 --   looks like an acronym

@@ -142,6 +142,8 @@ verbs =
     , verb "banjo" "banjoes" "banjoed"
     , verb "play"  "plays"   "played"
     , verb "cry"   "cries"   "cried"
+    , verb "goto"  "gotoes"  "gotoed"
+    , verb "boo"   "boos"    "booed"
     ]
   where
     verb x y z = (x, y, z)

@@ -125,7 +125,7 @@ defaultNounPlural x
 defaultVerbStuff :: Text -> (Text, Text)
 defaultVerbStuff x
     | hasSibilantSuffix x   = sibilant_o
-    | "o" `T.isSuffixOf` x  = sibilant_o
+    | hasCoSuffix x         = sibilant_o
     | hasCySuffix x         = y_final
     | "e" `T.isSuffixOf` x  = e_final
     | otherwise             = plain

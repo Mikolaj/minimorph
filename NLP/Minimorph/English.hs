@@ -102,38 +102,38 @@ ordinal n = case n of
 defaultNounPlural :: Text -> Text
 defaultNounPlural x
     | "is" `T.isSuffixOf` x = thesis
-    | hasSibilantSuffix x   = es
-    | hasCySuffix x         = y_ies
-    | hasCoSuffix x         = o_es
-    | "f"  `T.isSuffixOf` x = f_ves
+    | hasSibilantSuffix x   = sibilant_o
+    | hasCoSuffix x         = sibilant_o
+    | hasCySuffix x         = y_final
+    | "f"  `T.isSuffixOf` x = f_final
     | otherwise             = plain
   where
-    plain  = x            <> "s"
-    es     = x            <> "es"
-    y_ies  = T.init x     <> "ies"
-    o_es   = x            <> "es"
-    f_ves  = T.init x     <> "ves"
-    thesis = tDropEnd 2 x <> "es"
+    plain      = x            <> "s"
+    sibilant_o = x            <> "es"
+    y_final    = T.init x     <> "ies"
+    f_final    = T.init x     <> "ves"
+    thesis     = tDropEnd 2 x <> "es"
 
 -- | Heuristics for 3rd person singular and past participle
---   for an unknown regular verb
+--   for an unknown regular verb. Doubling of final consonants
+--   can be handled via a table of (partially) irrefular verbs.
 --
 -- > defaultVerbStuff "walk"  == ("walks",  "walked")
 -- > defaultVerbStuff "push"  == ("pushes", "pushed")
 -- > defaultVerbStuff "play"  == ("plays",  "played")
 -- > defaultVerbStuff "cry"   == ("cries",  "cried")
 defaultVerbStuff :: Text -> (Text, Text)
-defaultVerbStuff v
-    | hasSibilantSuffix v   = sibilant_o v
-    | "o" `T.isSuffixOf` v  = sibilant_o v
-    | "e" `T.isSuffixOf` v  = e_final v
-    | hasCySuffix v         = y_final v
-    | otherwise             = plain v
+defaultVerbStuff x
+    | hasSibilantSuffix x   = sibilant_o
+    | "o" `T.isSuffixOf` x  = sibilant_o
+    | hasCySuffix x         = y_final
+    | "e" `T.isSuffixOf` x  = e_final
+    | otherwise             = plain
   where
-    plain x      = (x <> "s"         , x <> "ed")
-    sibilant_o x = (x <> "es"        , x <> "ed")
-    e_final    x = (x <> "s"         , x <> "d")
-    y_final    x = (T.init x <> "ies", T.init x <> "ied")
+    plain      = (x <> "s"         , x <> "ed")
+    sibilant_o = (x <> "es"        , x <> "ed")
+    e_final    = (x <> "s"         , x <> "d")
+    y_final    = (T.init x <> "ies", T.init x <> "ied")
 
 -- | Heuristics for a possesive form for an unknown noun.
 --

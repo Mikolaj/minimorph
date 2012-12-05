@@ -55,12 +55,17 @@ t_indefiniteDet = testGroup "indefiniteDet"
     , tc "8th"         "an"   "8th"
     , tc "18th"        "an"   "18th"
     , tc "xylophone"   "a"    "xylophone"
+    , tc "urge"        "an"   "urge"
+    , tc "user"        "an"   "user"  -- fails; requires a list of exceptions
+    , tc "xylophone"   "a"    "xylophone"
+    , tc "u-turn"      "a"    "u-turn"
     , tc "x-ray"       "an"   "x-ray"
     , tc "g-ray"       "a"    "g-ray"
     , tc "y-chromo"    "a"    "y-chromosome"
     , tc "x-chromo"    "an"   "x-chromosome"
     , tc "x chromo"    "an"   "x chromosome"
     , tc "mvp award"   "an"   "MVP award"
+    , tc "UUCP user"   "a"    "UUCP user"
     ]
   where
     tc msg res inp = testCase summary $
@@ -80,7 +85,6 @@ t_acronymWantsAn = testGroup "acronymWantsAn"
        assertEqual summary res (acronymWantsAn inp)
       where
        summary = msg ++ " (" ++ T.unpack inp ++ ")"
-
 
 t_ordinal :: Test.Framework.Test
 t_ordinal = testGroup "ordinal"

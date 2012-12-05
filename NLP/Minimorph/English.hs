@@ -258,7 +258,7 @@ isVowel = (`elem` "aeiou") . toLower
 --   (In the above, @'r'@ is pronounced @"are"@, but @'k'@ is pronounced
 --   @"kay"@)
 isLetterWithInitialVowelSound :: Char -> Bool
-isLetterWithInitialVowelSound = (`elem` "aeioufhlmnrsx") . toLower
+isLetterWithInitialVowelSound = (`elem` "aeiofhlmnrsx") . toLower
 
 -- | Is a consonant
 isConsonant :: Char -> Bool

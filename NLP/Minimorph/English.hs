@@ -175,8 +175,9 @@ wantsAn t_ =
     t      = fst $ T.break isSep $ T.toLower t_
     useAn0 = t `elem` anNumerals
     useAn1 = case T.uncons t of
-                Just ('8',_) -> True
                 Just (h, "") -> isLetterWithInitialVowelSound h
+                Just ('8',_) -> True
+                Just ('u',_) -> hasVowel_U_Prefix t
                 Just (h, _)  -> isVowel h `butNot` hasSemivowelPrefix t
                 Nothing      -> False
     x `butNot` y = x && not y
@@ -234,6 +235,15 @@ hasSibilantSuffix x = any (`T.isSuffixOf` x) ["x","s","ch","sh","z","j"]
 -- | Starts with a semivowel.
 hasSemivowelPrefix :: Text -> Bool
 hasSemivowelPrefix ls = any (`T.isPrefixOf` ls) ["y","w","eu","ewe"]
+
+-- | Starts with a vowel-y U sound
+hasVowel_U_Prefix :: Text -> Bool
+hasVowel_U_Prefix t =
+    case T.unpack t of
+        ['u']       -> False
+        ['u',_]     -> True
+        ('u':c:v:_) -> not (isConsonant c && isVowel v)
+        _           -> False
 
 -- | Last two letters are a consonant and 'y'.
 hasCySuffix :: Text -> Bool

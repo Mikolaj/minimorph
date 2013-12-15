@@ -38,6 +38,7 @@ library
 test-suite test-minimorph
   type:       exitcode-stdio-1.0
   main-is:    test-minimorph.hs
+  other-modules: NLP.Minimorph.EnglishTest
   hs-Source-Dirs: test
   build-depends:       base < 5
                ,       HUnit

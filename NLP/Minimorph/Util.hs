@@ -7,9 +7,12 @@
 -- Portability : portable
 --
 -- Text utility functions.
-module NLP.Minimorph.Util where
+module NLP.Minimorph.Util
+ ( tTakeEnd, tDropEnd, (<>), (<+>), showT )
+ where
 
-import Data.Text ( Text )
+import Data.Monoid ((<>))
+import Data.Text (Text)
 import qualified Data.Text as T
 
 -- | @tTakeEnd n t@ returns the last @n@ letters of @t@.
@@ -20,10 +23,7 @@ tTakeEnd n t = T.drop (T.length t - n) t
 tDropEnd :: Int -> Text -> Text
 tDropEnd n x = T.take (T.length x - n) x
 
--- | Identical to 'T.append'.
-(<>) :: Text -> Text -> Text
-t1 <> t2 = t1 `T.append` t2
-
+infixr 6 <+>  -- matches Monoid.<>
 -- | Separated by space unless one of them is empty (in which case just
 --   the non-empty one).
 (<+>) :: Text -> Text -> Text

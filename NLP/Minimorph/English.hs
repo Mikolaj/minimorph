@@ -51,7 +51,7 @@ cardinal n = case n of
     8  -> "eight"
     9  -> "nine"
     10 -> "ten"
-    _ -> showT n
+    _ -> tshow n
 
 -- | > ordinalNotSpelled 1 == "1st"
 --   > ordinalNotSpelled 2 == "2nd"
@@ -64,7 +64,7 @@ ordinalNotSpelled k = case abs k `rem` 100 of
     | n `rem` 10 == 3 -> k `suf` "rd"
     | otherwise       -> k `suf` "th"
  where
-  num `suf` s = showT num <> s
+  num `suf` s = tshow num <> s
 
 -- | > ordinal 1 == "first"
 --   > ordinal 2 == "second"

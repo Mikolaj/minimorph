@@ -181,7 +181,7 @@ wantsAn t_ =
                 Just (h, _)  -> isVowel h `butNot` hasSemivowelPrefix t
                 Nothing      -> False
     x `butNot` y = x && not y
-    isSep c = isSpace c || c `elem` "-"
+    isSep c = isSpace c || c `elem` ("-" :: String)
 
 -- | Variant of 'wantsAn' that assumes the input string is pronounced
 --   one letter at a time.
@@ -222,7 +222,7 @@ startsWithAcronym =
     looksLikeAcronym . firstWord
   where
     firstWord = fst . T.break isSep
-    isSep c   = isSpace c || c `elem` "-"
+    isSep c   = isSpace c || c `elem` ("-" :: String)
 
 -- ---------------------------------------------------------------------
 -- ** Sounds
@@ -257,7 +257,7 @@ hasCoSuffix _ = False
 
 -- | Is a vowel.
 isVowel :: Char -> Bool
-isVowel = (`elem` "aeiou") . toLower
+isVowel = (`elem` ("aeiou" :: String)) . toLower
 
 -- | Letters that when pronounced independently in English sound like they
 --   begin with vowels.
@@ -268,7 +268,7 @@ isVowel = (`elem` "aeiou") . toLower
 --   (In the above, @'r'@ is pronounced @"are"@, but @'k'@ is pronounced
 --   @"kay"@.)
 isLetterWithInitialVowelSound :: Char -> Bool
-isLetterWithInitialVowelSound = (`elem` "aeiofhlmnrsx") . toLower
+isLetterWithInitialVowelSound = (`elem` ("aeiofhlmnrsx" :: String)) . toLower
 
 -- | Is a consonant.
 isConsonant :: Char -> Bool

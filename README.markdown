@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/kowey/minimorph.png)](http://travis-ci.org/kowey/minimorph)
+[![Build Status](https://travis-ci.org/Mikolaj/minimorph.svg?branch=master)](https://travis-ci.org/Mikolaj/minimorph)
 
 ## Cheap English morphology
 
@@ -11,3 +11,5 @@ morphology. You're still going to need a list of exceptions or perhaps
 someday work with a more advanced package. The goal of this package is
 to hit that some bang, no buck, sweet spot so you can crank something
 out quickly and hopefully replace at a better time.
+
+See https://github.com/Mikolaj/miniutter for a simple use case.

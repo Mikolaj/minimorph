@@ -8,7 +8,7 @@
 --
 -- Text utility functions.
 module NLP.Minimorph.Util
- ( tTakeEnd, tDropEnd, (<>), (<+>), tshow, showT )
+ ( tTakeEnd, tDropEnd, (<>), (<+>), tshow )
  where
 
 import Data.Monoid ((<>))
@@ -34,7 +34,3 @@ t1 <+> t2 | T.null t1 = t2
 -- | Show a value in Text format.
 tshow :: Show a => a -> Text
 tshow = T.pack . show
-
-showT :: Show a => a -> Text
-{-# DEPRECATED showT "The function is renamed to @tshow@." #-}
-showT = tshow

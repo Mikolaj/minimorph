@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                minimorph
-version:             0.1.6.0
+version:             0.1.6.1
 synopsis:            English spelling functions with an emphasis on simplicity.
 description:         A set of simplistic functions capturing the more regular
                      parts of English spelling (for generation, not parsing).

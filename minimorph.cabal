@@ -40,9 +40,12 @@ library
                ,       text
 
   default-language:   Haskell2010
-
   if impl(ghc >= 8.0)
   {
+  default-extensions: MonoLocalBinds, ScopedTypeVariables, OverloadedStrings
+                      BangPatterns, RecordWildCards, NamedFieldPuns, MultiWayIf,
+                      LambdaCase, DefaultSignatures, InstanceSigs,
+                      MonadFailDesugaring, StrictData, CPP
   ghc-options:        -Wall -Wcompat -Worphans -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-home-modules -Widentities -Wredundant-constraints
   ghc-options:        -Wall-missed-specialisations
   ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively
@@ -62,6 +65,10 @@ test-suite test-minimorph
   default-language:   Haskell2010
   if impl(ghc >= 8.0)
   {
+  default-extensions: MonoLocalBinds, ScopedTypeVariables, OverloadedStrings
+                      BangPatterns, RecordWildCards, NamedFieldPuns, MultiWayIf,
+                      LambdaCase, DefaultSignatures, InstanceSigs,
+                      MonadFailDesugaring, StrictData, CPP
   ghc-options:        -Wall -Wcompat -Worphans -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-home-modules -Widentities -Wredundant-constraints
   ghc-options:        -Wall-missed-specialisations
   ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively

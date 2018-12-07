@@ -1,5 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ViewPatterns      #-}
+{-# LANGUAGE OverloadedStrings, ViewPatterns #-}
 -- TODO : learn how to use Functional Morphology instead
 
 -- | Module    : NLP.Minimorph.English
@@ -12,11 +11,11 @@
 -- Simple default rules for English morphology
 module NLP.Minimorph.English where
 
-import           Data.Char          (toLower, isSpace, isUpper)
-import           Data.Text          (Text)
-import qualified Data.Text          as T
+import           Data.Char (isSpace, isUpper, toLower)
+import           Data.Text (Text)
+import qualified Data.Text as T
 
-import           NLP.Minimorph.Util
+import NLP.Minimorph.Util
 
 -- ---------------------------------------------------------------------
 -- ** Punctuation
@@ -41,6 +40,7 @@ commas et xs = T.intercalate ", " (init xs) <+> et <+> last xs
 --   > cardinal 11 == "11"
 cardinal :: Int -> Text
 cardinal n = case n of
+    0  -> "zero"
     1  -> "one"
     2  -> "two"
     3  -> "three"
@@ -73,6 +73,7 @@ ordinalNotSpelled k = case abs k `rem` 100 of
 --   > ordinal 42 == "42nd"
 ordinal :: Int -> Text
 ordinal n = case n of
+    0  -> "zeroth"
     1  -> "first"
     2  -> "second"
     3  -> "third"

@@ -2,12 +2,12 @@
 
 module NLP.Minimorph.EnglishTest where
 
-import Data.Text ( Text )
+import           Data.Text (Text)
 import qualified Data.Text as T
 
-import Test.HUnit
-import Test.Framework.Providers.HUnit
 import Test.Framework
+import Test.Framework.Providers.HUnit
+import Test.HUnit
 
 import NLP.Minimorph.English
 
@@ -29,11 +29,10 @@ t_defaultVerbStuff :: Test.Framework.Test
 t_defaultVerbStuff =
     testGroup "defaultVerbStuff" (map tc verbs)
   where
-    tc v@(pl, sg3, pastP) = testCase summary $
+    tc (pl, sg3, pastP) = testCase summary $
         assertEqual summary (sg3, pastP) (defaultVerbStuff pl)
       where
         summary = T.unpack $ T.concat [ pl, " (", sg3, ", ", pastP, ")" ]
-        v2    = defaultVerbStuff pl
 
 t_defaultNounPlural :: Test.Framework.Test
 t_defaultNounPlural =

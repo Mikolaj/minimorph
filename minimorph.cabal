@@ -45,7 +45,7 @@ library
   {
   ghc-options:        -Wall -Wcompat -Worphans -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-home-modules -Widentities -Wredundant-constraints
   ghc-options:        -Wall-missed-specialisations
-  ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively -fsimpl-tick-factor=200
+  ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively
   }
 
 test-suite test-minimorph
@@ -64,5 +64,5 @@ test-suite test-minimorph
   {
   ghc-options:        -Wall -Wcompat -Worphans -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-home-modules -Widentities -Wredundant-constraints
   ghc-options:        -Wall-missed-specialisations
-  ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively -fsimpl-tick-factor=200
+  ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively
   }

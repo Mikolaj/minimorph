@@ -1,14 +1,6 @@
 {-# LANGUAGE OverloadedStrings, ViewPatterns #-}
 -- TODO : learn how to use Functional Morphology instead
-
--- | Module    : NLP.Minimorph.English
--- Copyright   : 2012 Eric Kow (Computational Linguistics Ltd.)
--- License     : BSD3
--- Maintainer  : eric.kow@gmail.com
--- Stability   : experimental
--- Portability : portable
---
--- Simple default rules for English morphology
+-- |Simple default rules for English morphology
 module NLP.Minimorph.English where
 
 import           Data.Char (isSpace, isUpper, toLower)
@@ -34,9 +26,10 @@ commas et xs = T.intercalate ", " (init xs) <+> et <+> last xs
 -- ** Numbers
 -- ---------------------------------------------------------------------
 
--- | > cardinal 1 == "one"
+-- | > cardinal 0 == "zero"
+--   > cardinal 1 == "one"
 --   > cardinal 2 == "two"
---   > cardinal 3 == "three"
+--   > cardinal 10 == "ten"
 --   > cardinal 11 == "11"
 cardinal :: Int -> Text
 cardinal n = case n of
@@ -99,6 +92,7 @@ ordinal n = case n of
 -- > defaultNounPlural "thesis" == "theses"
 --
 -- http://www.paulnoll.com/Books/Clear-English/English-plurals-1.html
+--
 -- http://en.wikipedia.org/wiki/English_plural
 defaultNounPlural :: Text -> Text
 defaultNounPlural x
@@ -117,7 +111,7 @@ defaultNounPlural x
 
 -- | Heuristics for 3rd person singular and past participle
 --   for an unknown regular verb. Doubling of final consonants
---   can be handled via a table of (partially) irrefular verbs.
+--   can be handled via a table of (partially) irregular verbs.
 --
 -- > defaultVerbStuff "walk"  == ("walks",  "walked")
 -- > defaultVerbStuff "push"  == ("pushes", "pushed")
@@ -166,7 +160,7 @@ indefiniteDet :: Text -> Text
 indefiniteDet t = if wantsAn t then "an" else "a"
 
 -- | True if the indefinite determiner for a word would normally be
---   'an' as opposed to 'a'.
+--   \'an\' as opposed to \'a\'.
 wantsAn :: Text -> Bool
 wantsAn t_ =
     if startsWithAcronym t_
@@ -190,7 +184,7 @@ wantsAn t_ =
 --   > wantsAn        "x-ray" == False
 --   > acronymWantsAn "x-ray" == True
 --
---   Note that this won't do the right thing for words like @"SCUBA"@.
+--   Note that this won't do the right thing for words like \"SCUBA\".
 --   You really have to reserve it for those separate-letter acronyms.
 acronymWantsAn :: Text -> Bool
 acronymWantsAn (T.toLower -> t) =
@@ -216,7 +210,7 @@ looksLikeAcronym :: Text -> Bool
 looksLikeAcronym "" = False
 looksLikeAcronym x = T.all isUpper (if T.length x > 1 then T.drop 1 x else x)
 
--- | True if the first word (separating on either - or space)
+-- | True if the first word (separating on either hyphen or space)
 --   looks like an acronym.
 startsWithAcronym :: Text -> Bool
 startsWithAcronym =
@@ -229,7 +223,7 @@ startsWithAcronym =
 -- ** Sounds
 -- ---------------------------------------------------------------------
 
--- | Ends with a sh sound.
+-- | Ends with a \'sh\' sound.
 hasSibilantSuffix :: Text -> Bool
 hasSibilantSuffix x = any (`T.isSuffixOf` x) ["x","s","ch","sh","z","j"]
 
@@ -237,7 +231,7 @@ hasSibilantSuffix x = any (`T.isSuffixOf` x) ["x","s","ch","sh","z","j"]
 hasSemivowelPrefix :: Text -> Bool
 hasSemivowelPrefix ls = any (`T.isPrefixOf` ls) ["y","w","eu","ewe"]
 
--- | Starts with a vowel-y U sound
+-- | Starts with a vowel-y \'U\' sound
 hasVowel_U_Prefix :: Text -> Bool
 hasVowel_U_Prefix t =
     case T.unpack t of
@@ -246,12 +240,12 @@ hasVowel_U_Prefix t =
         ('u':c:v:_) -> not (isConsonant c && isVowel v)
         _           -> False
 
--- | Last two letters are a consonant and 'y'.
+-- | Last two letters are a consonant and \'y\'.
 hasCySuffix :: Text -> Bool
 hasCySuffix (T.unpack . tTakeEnd 2 -> [x, 'y']) = isConsonant x
 hasCySuffix _ = False
 
--- | Last two letters are a consonant and 'o'.
+-- | Last two letters are a consonant and \'o\'.
 hasCoSuffix :: Text -> Bool
 hasCoSuffix (T.unpack . tTakeEnd 2 -> [x, 'o']) = isConsonant x
 hasCoSuffix _ = False
@@ -266,8 +260,8 @@ isVowel = (`elem` ("aeiou" :: String)) . toLower
 --   > isLetterWithInitialVowelSound 'r' == True
 --   > isLetterWithInitialVowelSound 'k' == False
 --
---   (In the above, @'r'@ is pronounced @"are"@, but @'k'@ is pronounced
---   @"kay"@.)
+--   (In the above, \'r\' is pronounced \"are\", but \'k\' is pronounced
+--   \"kay\".)
 isLetterWithInitialVowelSound :: Char -> Bool
 isLetterWithInitialVowelSound = (`elem` ("aeiofhlmnrsx" :: String)) . toLower
 

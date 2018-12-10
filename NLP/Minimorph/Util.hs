@@ -1,12 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
--- | Module    : NLP.Minimorph.Util
--- Copyright   : 2012 Eric Kow (Computational Linguistics Ltd.)
--- License     : BSD3
--- Maintainer  : eric.kow@gmail.com
--- Stability   : experimental
--- Portability : portable
---
--- Text utility functions.
+-- | Text utility functions.
 module NLP.Minimorph.Util
  ( tTakeEnd, tDropEnd, (<>), (<+>), tshow )
  where
@@ -31,6 +24,6 @@ t1 <+> t2 | T.null t1 = t2
           | T.null t2 = t1
           | otherwise = t1 <> " " <> t2
 
--- | Show a value in Text format.
+-- | Show a value in `Text` format.
 tshow :: Show a => a -> Text
 tshow = T.pack . show

@@ -1,7 +1,5 @@
 module NLP.Minimorph.Number where
 
-import Data.Text ( Text )
-
 -- | Singular and Plural.
 data SingPlu a = SP
     { sg :: a

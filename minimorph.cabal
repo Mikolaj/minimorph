@@ -34,6 +34,7 @@ source-repository head
 
 library
   exposed-modules:     NLP.Minimorph.English
+                       NLP.Minimorph.Number
                        NLP.Minimorph.Util
 
   build-depends:       base < 5

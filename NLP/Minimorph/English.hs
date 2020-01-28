@@ -108,8 +108,8 @@ defaultNounPlural x
     sibilant_o = x            <> "es"
     y_final    = T.init x     <> "ies"
     f_final    = T.init x     <> "ves"
-    ff_final   = tDropEnd 2 x <> "ves"
-    thesis     = tDropEnd 2 x <> "es"
+    ff_final   = T.dropEnd 2 x <> "ves"
+    thesis     = T.dropEnd 2 x <> "es"
 
 -- | Heuristics for 3rd person singular and past participle
 --   for an unknown regular verb. Doubling of final consonants
@@ -244,12 +244,12 @@ hasVowel_U_Prefix t =
 
 -- | Last two letters are a consonant and \'y\'.
 hasCySuffix :: Text -> Bool
-hasCySuffix (T.unpack . tTakeEnd 2 -> [x, 'y']) = isConsonant x
+hasCySuffix (T.unpack . T.takeEnd 2 -> [x, 'y']) = isConsonant x
 hasCySuffix _ = False
 
 -- | Last two letters are a consonant and \'o\'.
 hasCoSuffix :: Text -> Bool
-hasCoSuffix (T.unpack . tTakeEnd 2 -> [x, 'o']) = isConsonant x
+hasCoSuffix (T.unpack . T.takeEnd 2 -> [x, 'o']) = isConsonant x
 hasCoSuffix _ = False
 
 -- | Is a vowel.

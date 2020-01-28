@@ -100,13 +100,15 @@ defaultNounPlural x
     | hasSibilantSuffix x   = sibilant_o
     | hasCoSuffix x         = sibilant_o
     | hasCySuffix x         = y_final
-    | "f"  `T.isSuffixOf` x = f_final
+    | "ff" `T.isSuffixOf` x = ff_final  -- quite often not the case
+    | "f" `T.isSuffixOf` x  = f_final   -- but this one as well, so both needed
     | otherwise             = plain
   where
     plain      = x            <> "s"
     sibilant_o = x            <> "es"
     y_final    = T.init x     <> "ies"
     f_final    = T.init x     <> "ves"
+    ff_final   = tDropEnd 2 x <> "ves"
     thesis     = tDropEnd 2 x <> "es"
 
 -- | Heuristics for 3rd person singular and past participle

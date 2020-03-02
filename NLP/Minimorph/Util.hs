@@ -3,8 +3,10 @@ module NLP.Minimorph.Util
  ( (<+>), tshow )
  where
 
--- Only needed for older GHC, but let's avoid CPP for this instance.
-import Data.Monoid ((<>))
+#if !(MIN_VERSION_base(4,11,0))
+  -- this is redundant starting with base-4.11 / GHC 8.4
+import Data.Semigroup
+#endif
 
 import           Data.Text (Text)
 import qualified Data.Text as T

@@ -3,6 +3,9 @@ module NLP.Minimorph.Util
  ( (<+>), tshow )
  where
 
+-- Only needed for older GHC, but let's avoid CPP for this instance.
+import Data.Monoid ((<>))
+
 import           Data.Text (Text)
 import qualified Data.Text as T
 

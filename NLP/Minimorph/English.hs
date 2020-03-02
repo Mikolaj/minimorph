@@ -3,6 +3,9 @@
 -- |Simple default rules for English morphology
 module NLP.Minimorph.English where
 
+-- Only needed for older GHC, but let's avoid CPP for this instance.
+import Data.Monoid ((<>))
+
 import           Data.Char (isSpace, isUpper, toLower)
 import           Data.Text (Text)
 import qualified Data.Text as T

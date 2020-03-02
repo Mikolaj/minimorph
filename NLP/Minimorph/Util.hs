@@ -1,10 +1,8 @@
-{-# LANGUAGE OverloadedStrings #-}
 -- | Text utility functions.
 module NLP.Minimorph.Util
- ( (<>), (<+>), tshow )
+ ( (<+>), tshow )
  where
 
-import           Data.Monoid ((<>))
 import           Data.Text (Text)
 import qualified Data.Text as T
 

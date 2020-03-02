@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings, ViewPatterns #-}
+{-# LANGUAGE ViewPatterns #-}
 -- TODO : learn how to use Functional Morphology instead
 -- |Simple default rules for English morphology
 module NLP.Minimorph.English where

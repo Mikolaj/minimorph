@@ -5,7 +5,7 @@ name:                minimorph
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- minor or non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:             0.2.1.0
+version:             0.2.2.0
 synopsis:            English spelling functions with an emphasis on simplicity.
 description:         A set of simplistic functions capturing the more regular
                      parts of English spelling (for generation, not parsing).
@@ -37,20 +37,18 @@ library
                        NLP.Minimorph.Number
                        NLP.Minimorph.Util
 
-  build-depends:       base < 5
+  build-depends:       base >= 4.9 && < 5
                ,       text >= 1.1.1
 
   default-language:   Haskell2010
-  if impl(ghc >= 8.0)
-  {
   default-extensions: MonoLocalBinds, ScopedTypeVariables, OverloadedStrings
                       BangPatterns, RecordWildCards, NamedFieldPuns, MultiWayIf,
                       LambdaCase, DefaultSignatures, InstanceSigs,
-                      MonadFailDesugaring, StrictData, CPP
-  ghc-options:        -Wall -Wcompat -Worphans -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-home-modules -Widentities -Wredundant-constraints
+                      PatternSynonyms, StrictData, CPP
+  other-extensions:   ViewPatterns
+  ghc-options:        -Wall -Wcompat -Worphans -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-home-modules -Widentities -Wredundant-constraints -Wpartial-fields
   ghc-options:        -Wall-missed-specialisations
-  ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively
-  }
+  ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively -fsimpl-tick-factor=200
 
 test-suite test-minimorph
   type:       exitcode-stdio-1.0
@@ -64,13 +62,11 @@ test-suite test-minimorph
                ,       test-framework-hunit
                ,       text
   default-language:   Haskell2010
-  if impl(ghc >= 8.0)
-  {
   default-extensions: MonoLocalBinds, ScopedTypeVariables, OverloadedStrings
                       BangPatterns, RecordWildCards, NamedFieldPuns, MultiWayIf,
                       LambdaCase, DefaultSignatures, InstanceSigs,
-                      MonadFailDesugaring, StrictData, CPP
-  ghc-options:        -Wall -Wcompat -Worphans -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-home-modules -Widentities -Wredundant-constraints
+                      PatternSynonyms, StrictData, CPP
+  ghc-options:        -Wall -Wcompat -Worphans -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-home-modules -Widentities -Wredundant-constraints -Wpartial-fields
   ghc-options:        -Wall-missed-specialisations
-  ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively
-  }
+  ghc-options:        -fno-ignore-asserts -fexpose-all-unfoldings -fspecialise-aggressively -fsimpl-tick-factor=200
+  ghc-options:        -threaded -rtsopts

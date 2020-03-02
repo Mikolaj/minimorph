@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module NLP.Minimorph.EnglishTest where
 
 import           Data.Text (Text)

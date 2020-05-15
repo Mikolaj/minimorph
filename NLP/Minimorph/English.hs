@@ -274,4 +274,4 @@ isLetterWithInitialVowelSound = (`elem` ("aeiofhlmnrsx" :: String)) . toLower
 
 -- | Is a consonant.
 isConsonant :: Char -> Bool
-isConsonant = not . isVowel
+isConsonant = (`elem` ("bcdfghjklmnpqrstvwxyz" :: String)) . toLower

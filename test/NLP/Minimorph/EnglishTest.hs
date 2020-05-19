@@ -127,6 +127,7 @@ nouns =
     , noun "thesis" "theses"
     , noun "elf"    "elves"
     , noun "ace"    "aces"
+    , noun "5y"     "5ys"
     ]
   where
     noun s p = (s,p)

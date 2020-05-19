@@ -273,5 +273,8 @@ isLetterWithInitialVowelSound :: Char -> Bool
 isLetterWithInitialVowelSound = (`elem` ("aeiofhlmnrsx" :: String)) . toLower
 
 -- | Is a consonant.
+--
+--   Note that not every `Char` is either a vowel or a consonant.
+--   We consider numbers, spaces and symbols to be neither vowel or consonants
 isConsonant :: Char -> Bool
 isConsonant = (`elem` ("bcdfghjklmnpqrstvwxyz" :: String)) . toLower

@@ -5,7 +5,7 @@ name:                minimorph
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- minor or non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:             0.2.2.0
+version:             0.3.0.0
 synopsis:            English spelling functions with an emphasis on simplicity.
 description:         A set of simplistic functions capturing the more regular
                      parts of English spelling (for generation, not parsing).

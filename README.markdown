@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/Mikolaj/minimorph.svg?branch=master)](https://travis-ci.org/Mikolaj/minimorph)
-
 ## Cheap English morphology
 
 This package is written to help you with things related to how English
